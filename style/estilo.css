@@ -1,0 +1,18 @@
+section[role="region"] > .contenido {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.centrado {
+	text-align: center;
+}
+
+#crono {
+	font-size: 3rem;
+	font-family: FiraMono, "Courier New", Consolas, monospace;
+}
+
+#inicializar {
+	/* buttons.css funciona incorrectamente para eventos en botones disabled, se corrige la propiedad */
+	/* https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events */
+	pointer-events: auto;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cronómetro</title>
+	<meta charset="UTF-8">
+	
+	<!-- https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag -->
+	<meta name="viewport" content="width=device-width, user-scalable=no">	<!-- control del diseño en navegadores móviles -->
+	
+	<!-- http://buildingfirefoxos.com/ -->
+	<link href="style/util.css" rel="stylesheet" type="text/css">	<!-- también es el css oficial de Firefox OS -->
+	<link href="style/fonts.css" rel="stylesheet" type="text/css">
+	<link href="style/headers.css" rel="stylesheet" type="text/css">
+	<link href="style/buttons.css" rel="stylesheet" type="text/css">
+<!--	<link href="style_unstable/lists.css" rel="stylesheet" type="text/css">-->
+	<link href="style_unstable/lists2.css" rel="stylesheet" type="text/css">
+
+	<!-- hojas de estilo mías -->
+	<!-- <link href="style/fontsItalic.css" rel="stylesheet" type="text/css"> -->	<!-- fontsItalic.css no usado -->
+	<link href="style/fontsMono.css" rel="stylesheet" type="text/css">
+	<link href="style/estilo.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript" src="js/zepto.min.js" > </script>
+	<script type="text/javascript" src="js/touch.js" > </script>
+	
+	<script type="text/javascript">
+		$(function() {
+			var t;									// para comprobar si el crono está parado
+			var cl = $("#crono");					// valor del crono en html
+			var l = $("#lista");					// lista de paradas
+			var btnCambiar = $("#cambiar");			// botón cambiar
+			var btnInicializar = $("#inicializar");	// botón inicializar
+			var body = $("body");					// eventos táctiles sobre el body
+			
+			localStorage.ac = (localStorage.ac || "0.00");	// almacenar tiempo del crono
+			localStorage.al = (localStorage.al || "");		// almacenar lista de paradas
+			
+			function incr()			{ localStorage.ac = +localStorage.ac + 0.01; }				// incrementar el crono
+			function mostrar()		{ cl.html((+localStorage.ac).toFixed(2)); }					// insertar el crono en el html
+			function mostrar_lista(){ l.html(localStorage.al); }								// insertar la lista de paradas en el html
+			function arrancar()		{ t = setInterval(function() {incr(); mostrar();}, 10); }	// arrancar el crono
+			
+			// parar el crono
+			function parar() {
+				clearInterval(t);
+				t = undefined;
+				
+				// añadir el valor del crono parado arriba de la lista de paradas
+				localStorage.al = "<li><p>Tiempo: " + cl.html() + " segundos</p></li>" + localStorage.al;
+				
+				mostrar_lista();
+			}
+			
+			// arrancar o parar el crono
+			function cambiar() {
+				if (!t) {	// si el crono está parado
+					arrancar();
+					btnInicializar.attr('disabled', 'disabled');	// desactiva el botón inicializar
+				}
+				else {
+					parar();
+					btnInicializar.removeAttr('disabled');	// activa el botón inicializar
+				}
+			}
+			
+			// crono a 0.00 y limpiar la lista de paradas
+			function inicializar() {
+				if (!t) {	// si el crono está parado
+					localStorage.ac = "0.00";
+					mostrar();
+					localStorage.al = "";
+					mostrar_lista();
+				}
+			}
+			
+			// eventos click en botones
+			// en pantallas táctiles el tap dispara el click
+//			btnCambiar.on('click', cambiar);
+//			btnInicializar.on('click', inicializar);
+			
+			// eventos táctiles en todo el body
+//			body.on('tap', cambiar);			// tap: dar un toque con el dedo
+//			body.on('swipeLeft', inicializar);	// swipeLeft: tocar y desplazar a la izquierda
+//			body.on('swipeRight', inicializar);	// swipeRight: tocar y desplazar a la derecha
+			
+			// desactivar eventos táctiles en todos los botones
+			// al realizar tap en los botones se dispara igualmente click
+//			$("button").on('tap', function() {return false;});
+//			$("button").on('swipeLeft', function() {return false;});
+//			$("button").on('swipeRight', function() {return false;});
+
+			btnCambiar.on('tap', cambiar);
+			btnInicializar.on('tap', inicializar);
+			
+			mostrar();
+			mostrar_lista();
+		});
+	</script>
+</head>
+<body class="scrollable">
+
+<section role="region">
+	<header>
+		<h1>Cronómetro</h1>
+	</header>
+	
+	<section class="contenido">
+		<p class="centrado"><span id="crono">0.00</span>&nbsp; segundos</p>
+		<button class="recommend" id="cambiar">Arrancar / Parar</button>
+		<button class="danger" id="inicializar">Inicializar</button>
+	</section>
+	
+	<section class="lista">
+		<header>Paradas</header>
+		<ul id="lista"></ul>
+	</section>
+</section>
+
+</body>
+</html>

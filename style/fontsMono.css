@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'FiraMono';
+  src: url('fonts/FiraMono/FiraMono-Regular.eot');
+  src: url('fonts/FiraMono/FiraMono-Regular.eot?#iefix') format('embedded-opentype'),
+       url('fonts/FiraMono/FiraMono-Regular.woff') format('woff'),
+       url('fonts/FiraMono/FiraMono-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'FiraMono';
+  src: url('fonts/FiraMono/FiraMono-Bold.eot');
+  src: url('fonts/FiraMono/FiraMono-Bold.eot?#iefix') format('embedded-opentype'),
+       url('fonts/FiraMono/FiraMono-Bold.woff') format('woff'),
+       url('fonts/FiraMono/FiraMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
