@@ -8,7 +8,7 @@ Cronómetro en segundos con puntos de parada. Guarda los puntos de parada al cer
 La **Web App** se compila a **Android** mediante **PhoneGap**, con el fichero `config.xml`, pero el código es compatible con cualquier plataforma que soporte los lenguajes.
 
 ### Screenshot
-![Mobile](img/Screenshot.jpeg)
+![Mobile](https://raw.github.com/metal347/Cronometro/master/img/Screenshot.jpeg)
 
 ### License
 **Cronometro** is licenced under the [MIT License](http://en.wikipedia.org/wiki/MIT_licence).
